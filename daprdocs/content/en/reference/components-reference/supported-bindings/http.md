@@ -51,6 +51,7 @@ All of the operations above support the following metadata fields
 | Field              | Required | Details | Example |
 |--------------------|:--------:|---------|---------|
 | path               | N        | The path to append to the base URL. Used for accessing specific URIs     | `"/1234"`, `"/search?lastName=Jones"`
+| treatNon200AsError | N        | If this is set to anything other than `true`, responses will be returned regardless of the upstream status code | `true`, `false`
 | Headers*           | N        | Any fields that have a capital first letter are sent as request headers  | `"Content-Type"`, `"Accept"`
 
 #### Retrieving data
@@ -73,6 +74,12 @@ Optionally, a path can be specified to interact with resource URIs:
   }
 }
 ```
+
+#### Handling errors
+
+The default behavior of this binding to return an error if the binding's HTTP endpoint returns a status code outside of 200-299, which means that no response data is transmitted 
+as part of the API call to Dapr. To alter this behavior, set the metadata key `treatNon200AsError` to `false`, this will return the response from the HTTP endpoint no matter 
+what status code is returned by the downstream request. 
 
 ### Response
 
